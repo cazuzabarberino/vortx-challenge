@@ -1,9 +1,9 @@
 import { Router, request, response } from "express";
+import FalemaisController from "../controllers/FalemaisController";
 
+const falemaisController = new FalemaisController();
 const falemaisRouter = Router();
 
-falemaisRouter.post("/", async (request, response) => {
-  response.json({ message: "ok" });
-});
+falemaisRouter.post("/", falemaisController.calculate);
 
 export default falemaisRouter;
