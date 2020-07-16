@@ -1,0 +1,43 @@
+{
+  "name": "vortx-challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:server": "ts-node-dev -r tsconfig-paths/register --no-notify --ignore-watch node_modules  src/shared/infra/http/index.ts",
+    "migrate:latest": "knex migrate:latest --knexfile src/shared/infra/knex/knexfile.ts",
+    "migrate:rollback": "knex migrate:rollback --knexfile src/shared/infra/knex/knexfile.ts",
+    "migrate:make": "knex migrate:make -x ts --knexfile src/shared/infra/knex/knexfile.ts",
+    "seed": "knex seed:run --knexfile src/shared/infra/knex/knexfile.ts",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cazuzabarberino/vortx-challenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cazuzabarberino/vortx-challenge/issues"
+  },
+  "homepage": "https://github.com/cazuzabarberino/vortx-challenge#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "knex": "^0.21.2",
+    "sqlite3": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.7",
+    "@types/jest": "^26.0.4",
+    "@types/knex": "^0.16.1",
+    "jest": "^26.1.0",
+    "ts-jest": "^26.1.2",
+    "ts-node-dev": "^1.0.0-pre.51",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^3.9.6"
+  }
+}
