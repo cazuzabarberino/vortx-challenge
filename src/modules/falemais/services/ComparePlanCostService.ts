@@ -32,7 +32,8 @@ export default class ComparePlanCostService {
       origin,
     });
 
-    // if(!result) throw new AppError(400, )
+    if (!result)
+      throw new AppError(400, "origin and destiny combination is invalid");
 
     const priceWithoutPlan = +(result.price * time).toFixed(2);
     const priceWithPlan = +(

@@ -2,8 +2,10 @@ import express from "express";
 import "express-async-errors";
 import router from "./routes";
 import errorCatcher from "./middlewares/errorCatcher";
+import cors from "cors";
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 
