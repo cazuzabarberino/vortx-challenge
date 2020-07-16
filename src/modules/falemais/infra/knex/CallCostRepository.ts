@@ -8,7 +8,7 @@ export default class CallCostRepository implements ICallCostRepository {
   public async getCallCost({
     destiny,
     origin,
-  }: IGetCallCostDTO): Promise<{ price: number }> {
+  }: IGetCallCostDTO): Promise<{ price: number } | undefined> {
     const result = await connection
       .select("price")
       .from(CallCostRepository.TABLE_NAME)
