@@ -19,6 +19,7 @@ export const Container = styled.div`
     left: 50%;
     transform: translateX(-50%);
     color: #312e38;
+    box-shadow: 0 0 4px rgba(0.1, 0.1, 0.1, 0.5);
 
     &::before {
       content: "";

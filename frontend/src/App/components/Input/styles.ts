@@ -23,7 +23,7 @@ export const Container = styled.div<ContainerProps>`
   ${(props) =>
     props.isErroerd &&
     css`
-      border-color: #c53030;
+      border-color: ${({ theme }) => theme.color.primary};
     `}
 
 
@@ -54,7 +54,7 @@ export const Container = styled.div<ContainerProps>`
   }
 
   svg {
-    margin-right: 16px;
+    margin-left: 8px;
   }
 `;
 
@@ -62,15 +62,15 @@ export const Error = styled(ToolTip)`
   height: 20px;
 
   svg {
-    margin-left: 16px;
+    margin-right: 16px;
   }
 
   span {
-    background: #c53030;
+    background: ${({ theme }) => theme.color.primary};
     color: #fff;
 
     &::before {
-      border-color: #c53030 transparent;
+      border-color: ${({ theme }) => theme.color.primary} transparent;
     }
   }
 `;

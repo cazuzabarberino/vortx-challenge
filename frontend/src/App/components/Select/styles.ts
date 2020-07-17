@@ -9,6 +9,7 @@ interface ContainerProps {
 }
 
 export const Container = styled.div<ContainerProps>`
+  
   border-radius: 8px;
   border: 2px solid #393939;
   width: 100%;
@@ -45,6 +46,7 @@ export const Container = styled.div<ContainerProps>`
   }
    
   select {
+    cursor: pointer;
     -webkit-appearance: none;
     padding: 16px;
     flex: 1;

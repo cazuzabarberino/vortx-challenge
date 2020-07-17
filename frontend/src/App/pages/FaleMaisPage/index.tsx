@@ -1,9 +1,25 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
+import * as yup from "yup";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
 import useForm from "../../hooks/useForm";
 import { Container, FormWrapper, SubTitle, Title } from "./styles";
+import { FiPhoneOutgoing, FiPhoneIncoming, FiClock } from "react-icons/fi";
+
+interface Errors {
+  [key: string]: string;
+}
+
+function getValidationErrors(err: yup.ValidationError): Errors {
+  const validationErrors: Errors = {};
+
+  err.inner.forEach((error) => {
+    validationErrors[error.path] = error.message;
+  });
+
+  return validationErrors;
+}
 
 function FaleMaisPage() {
   const { formValues, handleSetFormValue } = useForm({
@@ -13,10 +29,33 @@ function FaleMaisPage() {
     planType: "",
   });
 
+  const [errors, setErrors] = useState<Errors>({
+    origin: "",
+    destiny: "",
+    time: "",
+  });
+
   const handleOnSubmit = useCallback(
-    (event: React.FormEvent<HTMLFormElement>) => {
+    async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      console.log(formValues);
+
+      const schema = yup.object().shape({
+        origin: yup.string().required("DDD de origem é obrigatório."),
+        destiny: yup.string().required("DDD de destino é obrigatório."),
+        time: yup.string().required("Tempo da chamada é obrigatório."),
+      });
+
+      try {
+        await schema.validate(formValues, {
+          abortEarly: false,
+        });
+      } catch (err) {
+        if (err instanceof yup.ValidationError) {
+          setErrors(getValidationErrors(err));
+          return;
+        }
+        console.log(err);
+      }
     },
     [formValues]
   );
@@ -35,21 +74,27 @@ function FaleMaisPage() {
               setValue={handleSetFormValue}
               name="origin"
               placeholder="DDD da região de origem"
+              error={errors.origin}
               max={3}
+              icon={FiPhoneOutgoing}
             />
             <Input
               value={formValues.destiny}
               setValue={handleSetFormValue}
+              error={errors.destiny}
               name="destiny"
               placeholder="DDD da região de destino"
               max={3}
+              icon={FiPhoneIncoming}
             />
             <Input
               value={formValues.time}
               setValue={handleSetFormValue}
+              error={errors.time}
               name="time"
               placeholder="Duração da chamada em minutos"
               max={4}
+              icon={FiClock}
             />
             <Select
               value={formValues.planType}
