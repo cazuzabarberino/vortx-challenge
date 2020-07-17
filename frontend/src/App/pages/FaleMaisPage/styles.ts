@@ -41,7 +41,11 @@ const formAnimation = keyframes`
   }
 `;
 
-export const FormWrapper = styled.div`
+interface FormResultWrapperProps {
+  showResult: boolean;
+}
+
+export const FormResultWrapper = styled.div<FormResultWrapperProps>`
   position: absolute;
   top: -128px;
   width: calc(100% - 8px);
@@ -51,6 +55,15 @@ export const FormWrapper = styled.div`
   background: ${({ theme }) => theme.color.background};
   box-shadow: 0 4px 8px rgba(0.1, 0.1, 0.1, 0.5);
   animation: ${formAnimation} 0.5s ease-out;
+  overflow: hidden;
+
+  > div {
+    position: relative;
+    display: flex;
+
+    transition: 0.2s;
+    left: ${({ showResult }) => (showResult ? "calc(-100% - 16px)" : "0px")};
+  }
 `;
 
 export const Title = styled.h1`
