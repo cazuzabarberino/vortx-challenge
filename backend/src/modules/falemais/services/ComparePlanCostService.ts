@@ -9,8 +9,8 @@ interface IRequest {
 }
 
 interface IResponse {
-  priceWithPlan: number;
-  priceWithoutPlan: number;
+  priceWithPlan: number | string;
+  priceWithoutPlan: number | string;
 }
 
 export default class ComparePlanCostService {
@@ -32,8 +32,12 @@ export default class ComparePlanCostService {
       origin,
     });
 
-    if (!result)
-      throw new AppError(400, "origin and destiny combination is invalid");
+    if (!result) {
+      return {
+        priceWithPlan: "-",
+        priceWithoutPlan: "-",
+      };
+    }
 
     const priceWithoutPlan = +(result.price * time).toFixed(2);
     const priceWithPlan = +(
